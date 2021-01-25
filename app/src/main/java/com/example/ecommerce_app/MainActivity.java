@@ -18,10 +18,9 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom);
         NavController navController= Navigation.findNavController(this,R.id.fragment2);
         NavigationUI.setupWithNavController(bottomNavigationView,navController);
-        loadjson();
+
 
     }
 
-    private void loadjson() {
-    }
+
 }
