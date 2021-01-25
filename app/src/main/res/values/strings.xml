@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Ecommerce_app</string>
+    <string name="invalidpassword">"password must have six digits "</string>
+    <string name="invalid">username can\'t be empty</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dashboard_fragement">dashboard fragement</string>
+    <string name="call_fragement">call fragement</string>
+
+</resources>
