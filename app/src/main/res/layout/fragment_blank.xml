@@ -9,8 +9,8 @@
     <TextView
         android:layout_width="400dp"
         android:layout_height="40dp"
-        android:textSize="30sp"
+        android:text="@string/call_fragement"
         android:textColor="#FFF"
-        android:text="@string/call_fragement"/>
+        android:textSize="30sp" />
 
 </FrameLayout>

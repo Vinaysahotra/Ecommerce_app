@@ -41,7 +41,7 @@ spinner=findViewById(R.id.spinner);
                     finish();
                 }
             }
-        },3000);
+        },2000);
 
     }
 }
