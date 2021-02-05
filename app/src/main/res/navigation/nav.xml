@@ -6,17 +6,17 @@
     app:startDestination="@id/home2">
     <fragment
         android:id="@+id/home2"
-        android:name="com.example.ecommerce_app.fragments.home"
+        android:name="com.example.ecommerce_app.fragments.amazon"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/amazon" />
     <fragment
         android:id="@+id/dashboard"
-        android:name="com.example.ecommerce_app.fragments.dashboard"
+        android:name="com.example.ecommerce_app.fragments.flipkart"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/flipkart" />
     <fragment
         android:id="@+id/calls"
-        android:name="com.example.ecommerce_app.fragments.BlankFragment"
+        android:name="com.example.ecommerce_app.fragments.snapdeal"
         android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" />
+        tools:layout="@layout/snapdeal" />
 </navigation>

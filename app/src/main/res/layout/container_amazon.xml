@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 android:padding="3dp"
@@ -17,68 +18,120 @@ android:padding="3dp"
     android:padding="5dp"
     android:clickable="true"
 
-    app:cardBackgroundColor="#FC454549"
+    android:focusable="true"
     android:layout_margin="4dp"
-    android:focusable="true">
+    app:cardBackgroundColor="#353333"
+    tools:ignore="PrivateResource">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp">
 
+
         <ImageView
             android:id="@+id/thumbnail"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="0dp" />
 
-            android:layout_width="180dp"
-            android:layout_height="180dp" />
+        <ImageView
+            android:id="@+id/choice"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/buy_now"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="9dp"
+            android:layout_toEndOf="@+id/prime" />
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="138dp"
+            android:layout_width="375dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="5sp"
-            android:layout_marginEnd="5sp"
-            android:selectAllOnFocus="true"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="5sp"
+
             android:ellipsize="end"
             android:ems="20"
-            android:lines="3"
-            android:layout_toEndOf="@+id/thumbnail"
+            android:lines="2"
+            android:selectAllOnFocus="true"
             android:text="title"
-            android:textColor="#FFFF"
+            android:textColor="#FBF6F6"
             android:textIsSelectable="true"
             android:textSize="15sp"
             android:textStyle="italic" />
 
-
         <TextView
-            android:id="@+id/url"
-            android:layout_width="138dp"
+            android:id="@+id/price"
+            android:layout_width="143dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="3dp"
 
             android:layout_marginBottom="3dp"
             android:layout_toEndOf="@+id/thumbnail"
-            android:text="url"
-            android:textColor="#FFFF"
+            android:text="@string/Rs"
+            android:textColor="#FFFFFF"
             android:textSize="15sp" />
+
+        <RatingBar
+            android:id="@+id/rating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/price"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="14dp"
+            android:layout_toEndOf="@+id/thumbnail"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressTint="#BFB609"
+            android:stepSize="0.5" />
 
         <TextView
-            android:id="@+id/prime"
-            android:layout_width="138dp"
+            android:id="@+id/discount"
+            android:layout_width="115dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/url"
-            android:layout_marginStart="21dp"
+            android:layout_below="@+id/price"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="3dp"
 
             android:layout_marginBottom="3dp"
+            android:layout_toEndOf="@+id/rating"
+            android:text=""
+            android:textColor="#F8F8F8"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/buy_now"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/discount"
+            android:layout_marginStart="41dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
             android:layout_toEndOf="@+id/thumbnail"
-            android:text="prime"
+            android:background="#4A1F1F"
+            android:text="buy now"
             android:textColor="#FFFF"
             android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/prime"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/buy_now"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="9dp"
+
+            android:layout_toEndOf="@+id/thumbnail" />
+
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView></FrameLayout>

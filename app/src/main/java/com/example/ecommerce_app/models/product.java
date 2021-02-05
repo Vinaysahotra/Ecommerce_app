@@ -8,30 +8,45 @@ public class product {
     private String thumbnail;
     private String url;
     private String title;
+    private int price;
+    private String rating;
+    private String discount;
 
-    public product(boolean amazonChoice, boolean amazonPrime, String asin, boolean bestSeller, String thumbnail, String url, String title) {
-        this.amazonChoice = amazonChoice;
-        this.amazonPrime = amazonPrime;
-        this.asin = asin;
-        this.bestSeller = bestSeller;
-        this.thumbnail = thumbnail;
-        this.url = url;
-        this.title = title;
-    }
-
-    public product(Object amazonChoice, Object amazonPrime, Object asin, Object bestSeller, Object thumbnail, Object url, Object title) {
+    public product(String discount, String rating, Object price, Object amazonChoice, Object amazonPrime, Object asin, Object bestSeller, Object thumbnail, Object url, Object title) {
         this.amazonChoice = (boolean) amazonChoice;
         this.amazonPrime = (boolean) amazonPrime;
         this.asin = (String) asin;
         this.bestSeller = (boolean) bestSeller;
         this.thumbnail = (String) thumbnail;
         this.url = (String) url;
+        this.discount = discount;
         this.title = (String) title;
+        this.price = (int) price;
+        this.rating = rating;
     }
 
+    public boolean isBestSeller() {
+        return bestSeller;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
 
     public boolean isAmazonChoice() {
         return amazonChoice;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
     }
 
     public void setAmazonChoice(boolean amazonChoice) {
@@ -80,6 +95,14 @@ public class product {
 
     public String getTitle() {
         return title;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public void setTitle(String title) {

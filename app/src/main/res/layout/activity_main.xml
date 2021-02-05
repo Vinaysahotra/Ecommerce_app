@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back"
     >
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,9 +22,11 @@
     <fragment
         android:id="@+id/fragment2"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="665dp"
+        android:layout_width="410dp"
+        android:layout_height="673dp"
         app:defaultNavHost="true"
+
+
         app:layout_constraintBottom_toTopOf="@+id/bottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
