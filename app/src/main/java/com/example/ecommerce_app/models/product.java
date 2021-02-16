@@ -8,11 +8,11 @@ public class product {
     private String thumbnail;
     private String url;
     private String title;
-    private int price;
+    private String price;
     private String rating;
     private String discount;
 
-    public product(String discount, String rating, Object price, Object amazonChoice, Object amazonPrime, Object asin, Object bestSeller, Object thumbnail, Object url, Object title) {
+    public product(String discount, String rating, String price, Object amazonChoice, Object amazonPrime, Object asin, Object bestSeller, Object thumbnail, Object url, Object title) {
         this.amazonChoice = (boolean) amazonChoice;
         this.amazonPrime = (boolean) amazonPrime;
         this.asin = (String) asin;
@@ -21,7 +21,7 @@ public class product {
         this.url = (String) url;
         this.discount = discount;
         this.title = (String) title;
-        this.price = (int) price;
+        this.price = (String) price;
         this.rating = rating;
     }
 
@@ -97,11 +97,11 @@ public class product {
         return title;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
