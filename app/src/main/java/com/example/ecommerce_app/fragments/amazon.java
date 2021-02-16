@@ -2,16 +2,21 @@ package com.example.ecommerce_app.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.ecommerce_app.MainActivity;
 import com.example.ecommerce_app.R;
 import com.example.ecommerce_app.adapters.amazonadapter;
 import com.example.ecommerce_app.models.amazonviewmodel;
@@ -22,7 +27,9 @@ import java.util.ArrayList;
 
 public class amazon extends Fragment {
 
-    RecyclerView recyclerView;
+    LottieAnimationView loader;
+    amazonadapter amazonadapter;
+    amazonviewmodel viewmodel;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -55,38 +62,73 @@ public class amazon extends Fragment {
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.amazon, container, false);
-        final ArrayList<product> productsarray = new ArrayList<>();
-        final amazonadapter amazonadapter;
+        View view = inflater.inflate(R.layout.amazon, container, false);
+        setHasOptionsMenu(true);
+
+
+        RecyclerView recyclerView;
+        ArrayList<product> productsarray = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recyclerview_amazon);
-        final LottieAnimationView loader = view.findViewById(R.id.loading_amazon);
+        loader = view.findViewById(R.id.loading_amazon);
         loader.setVisibility(View.VISIBLE);
-        amazonviewmodel viewmodel = ViewModelProviders.of(this).get(amazonviewmodel.class);
-        viewmodel.init();
-        amazonadapter = new amazonadapter(productsarray, view.getContext());
-
-
+        amazonadapter = new amazonadapter(productsarray, getContext());
+        viewmodel = new ViewModelProvider(getActivity(), new ViewModelProvider.NewInstanceFactory()).get(amazonviewmodel.class);
         viewmodel.getAllproduct().observe(getViewLifecycleOwner(), new Observer<ArrayList<product>>() {
             @Override
             public void onChanged(ArrayList<product> products) {
-                if (products != null)
+                if (products != null) {
                     amazonadapter.setallproducts(products);
-                loader.setVisibility(View.GONE);
-                assert products != null;
-
+                    loader.setVisibility(View.GONE);
+                }
 
             }
         });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        amazonadapter.notifyDataSetChanged();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(amazonadapter);
 
         return view;
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.search, menu);
+        MenuItem item = menu.findItem(R.id.search);
+        SearchView searchView = new SearchView(((MainActivity) getContext()).getSupportActionBar().getThemedContext());
+        searchView.setQueryHint("search products");
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        item.setActionView(searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                loader.setVisibility(View.VISIBLE);
+                viewmodel.setAllproducts(query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        searchView.setOnClickListener(new View.OnClickListener() {
+                                          @Override
+                                          public void onClick(View v) {
+
+                                          }
+                                      }
+        );
+    }
 
 }

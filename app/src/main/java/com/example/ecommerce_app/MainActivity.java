@@ -1,18 +1,25 @@
 package com.example.ecommerce_app;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.example.ecommerce_app.adapters.amazonadapter;
+import com.example.ecommerce_app.models.amazonviewmodel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
+    amazonviewmodel viewmodel;
+    int count = 1;
+    LottieAnimationView loader;
+    amazonadapter amazonadapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,30 +30,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search, menu);
-        final MenuItem item = menu.findItem(R.id.search);
-        final androidx.appcompat.widget.SearchView searchView = (androidx.appcompat.widget.SearchView) item.getActionView();
-        searchView.setQueryHint("Search products");
-        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                return false;
-            }
-        });
-        item.getIcon().setVisible(false, false);
-        return true;
     }
 
 
