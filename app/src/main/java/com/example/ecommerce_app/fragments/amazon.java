@@ -1,5 +1,6 @@
 package com.example.ecommerce_app.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import com.example.ecommerce_app.R;
 import com.example.ecommerce_app.adapters.amazonadapter;
 import com.example.ecommerce_app.models.amazonviewmodel;
 import com.example.ecommerce_app.models.product;
+import com.example.ecommerce_app.settings;
 
 import java.util.ArrayList;
 
@@ -102,8 +104,17 @@ public class amazon extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
-        inflater.inflate(R.menu.search, menu);
+        inflater.inflate(R.menu.toolbar_icons, menu);
         MenuItem item = menu.findItem(R.id.search);
+        MenuItem item1 = menu.findItem(R.id.settings);
+        item1.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                startActivity(new Intent(getActivity(), settings.class));
+
+                return false;
+            }
+        });
         SearchView searchView = new SearchView(((MainActivity) getContext()).getSupportActionBar().getThemedContext());
         searchView.setQueryHint("search products");
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
