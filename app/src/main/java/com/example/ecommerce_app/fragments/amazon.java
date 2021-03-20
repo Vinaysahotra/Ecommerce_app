@@ -21,6 +21,7 @@ import com.example.ecommerce_app.MainActivity;
 import com.example.ecommerce_app.R;
 import com.example.ecommerce_app.adapters.amazonadapter;
 import com.example.ecommerce_app.models.amazonviewmodel;
+import com.example.ecommerce_app.models.flipkartviewmodel;
 import com.example.ecommerce_app.models.product;
 import com.example.ecommerce_app.settings;
 
@@ -31,7 +32,10 @@ public class amazon extends Fragment {
 
     LottieAnimationView loader;
     amazonadapter amazonadapter;
+    MenuItem item;
     amazonviewmodel viewmodel;
+    LottieAnimationView loading;
+    flipkartviewmodel flipkartviewmodel;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -78,7 +82,9 @@ public class amazon extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerview_amazon);
         loader = view.findViewById(R.id.loading_amazon);
         loader.setVisibility(View.VISIBLE);
+
         amazonadapter = new amazonadapter(productsarray, getContext());
+        flipkartviewmodel = new ViewModelProvider(getActivity(), new ViewModelProvider.NewInstanceFactory()).get(flipkartviewmodel.class);
         viewmodel = new ViewModelProvider(getActivity(), new ViewModelProvider.NewInstanceFactory()).get(amazonviewmodel.class);
         viewmodel.getAllproduct().observe(getViewLifecycleOwner(), new Observer<ArrayList<product>>() {
             @Override
@@ -101,45 +107,53 @@ public class amazon extends Fragment {
 
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.toolbar_icons, menu);
-        MenuItem item = menu.findItem(R.id.search);
+        item = menu.findItem(R.id.search);
         MenuItem item1 = menu.findItem(R.id.settings);
+
         item1.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                startActivity(new Intent(getActivity(), settings.class));
+                startActivity(new Intent(getContext(), settings.class));
 
                 return false;
             }
         });
-        SearchView searchView = new SearchView(((MainActivity) getContext()).getSupportActionBar().getThemedContext());
+        final SearchView searchView = new SearchView(((MainActivity) getContext()).getSupportActionBar().getThemedContext());
         searchView.setQueryHint("search products");
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
         item.setActionView(searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                if (query == "" || query == null)
+                    item.collapseActionView();
+                searchView.setIconified(true);
                 loader.setVisibility(View.VISIBLE);
-                viewmodel.setAllproducts(query);
-
+                flipkartviewmodel.setallproducts(query);
+                viewmodel.setAmazonproducts(query);
+                if (query == "" || query == null)
+                    item.collapseActionView();
                 return false;
             }
+
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
         });
-        searchView.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
 
-                                          }
-                                      }
-        );
+
+        searchView.setIconified(true);
+        item.collapseActionView();
+
+
     }
+
+
 
 }
