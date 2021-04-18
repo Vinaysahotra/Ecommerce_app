@@ -19,7 +19,7 @@
         app:menu="@menu/menu1"
         tools:ignore="MissingConstraints" />
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/fragment2"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -34,7 +34,8 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav" />
+        app:navGraph="@navigation/nav"
+        tools:ignore="FragmentTagUsage" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loading"
