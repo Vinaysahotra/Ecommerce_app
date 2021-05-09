@@ -1,29 +1,24 @@
 package com.example.ecommerce_app.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.ecommerce_app.MainActivity;
 import com.example.ecommerce_app.R;
 import com.example.ecommerce_app.adapters.amazonadapter;
+import com.example.ecommerce_app.models.Ebaviewmodel;
 import com.example.ecommerce_app.models.amazonviewmodel;
 import com.example.ecommerce_app.models.flipkartviewmodel;
 import com.example.ecommerce_app.models.product;
-import com.example.ecommerce_app.settings;
+import com.stone.vega.library.VegaLayoutManager;
 
 import java.util.ArrayList;
 
@@ -34,13 +29,14 @@ public class amazon extends Fragment {
     amazonadapter amazonadapter;
     MenuItem item;
     amazonviewmodel viewmodel;
-    LottieAnimationView loading;
+    private Ebaviewmodel Ebayviewmodel;
     flipkartviewmodel flipkartviewmodel;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
     private String mParam2;
+
 
     public amazon() {
 
@@ -73,24 +69,23 @@ public class amazon extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.amazon, container, false);
+        View view = inflater.inflate(R.layout.main_fragment, container, false);
         setHasOptionsMenu(true);
 
 
         RecyclerView recyclerView;
         ArrayList<product> productsarray = new ArrayList<>();
-        recyclerView = view.findViewById(R.id.recyclerview_amazon);
-        loader = view.findViewById(R.id.loading_amazon);
-        loader.setVisibility(View.VISIBLE);
-
+        recyclerView = view.findViewById(R.id.recyclerview);
+        loader = view.findViewById(R.id.loader);
         amazonadapter = new amazonadapter(productsarray, getContext());
-        flipkartviewmodel = new ViewModelProvider(getActivity(), new ViewModelProvider.NewInstanceFactory()).get(flipkartviewmodel.class);
+        loader.setVisibility(View.VISIBLE);
         viewmodel = new ViewModelProvider(getActivity(), new ViewModelProvider.NewInstanceFactory()).get(amazonviewmodel.class);
         viewmodel.getAllproduct().observe(getViewLifecycleOwner(), new Observer<ArrayList<product>>() {
             @Override
             public void onChanged(ArrayList<product> products) {
                 if (products != null) {
                     amazonadapter.setallproducts(products);
+
                     loader.setVisibility(View.GONE);
                 }
 
@@ -99,61 +94,11 @@ public class amazon extends Fragment {
 
 
         amazonadapter.notifyDataSetChanged();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new VegaLayoutManager());
         recyclerView.setAdapter(amazonadapter);
 
         return view;
     }
-
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.toolbar_icons, menu);
-        item = menu.findItem(R.id.search);
-        MenuItem item1 = menu.findItem(R.id.settings);
-
-        item1.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                startActivity(new Intent(getContext(), settings.class));
-
-                return false;
-            }
-        });
-        final SearchView searchView = new SearchView(((MainActivity) getContext()).getSupportActionBar().getThemedContext());
-        searchView.setQueryHint("search products");
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        item.setActionView(searchView);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                if (query == "" || query == null)
-                    item.collapseActionView();
-                searchView.setIconified(true);
-                loader.setVisibility(View.VISIBLE);
-                flipkartviewmodel.setallproducts(query);
-                viewmodel.setAmazonproducts(query);
-                if (query == "" || query == null)
-                    item.collapseActionView();
-                return false;
-            }
-
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
-
-        searchView.setIconified(true);
-        item.collapseActionView();
-
-
-    }
-
 
 
 }

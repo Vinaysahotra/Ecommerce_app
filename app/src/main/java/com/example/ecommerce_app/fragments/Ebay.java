@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -19,6 +18,7 @@ import com.example.ecommerce_app.models.Ebaviewmodel;
 import com.example.ecommerce_app.models.ProductsEba;
 import com.example.ecommerce_app.models.amazonviewmodel;
 import com.example.ecommerce_app.models.flipkartviewmodel;
+import com.stone.vega.library.VegaLayoutManager;
 
 import java.util.ArrayList;
 
@@ -63,7 +63,7 @@ public class Ebay extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.ebay, container, false);
+        final View view = inflater.inflate(R.layout.main_fragment, container, false);
         ArrayList<ProductsEba> productsEbas = new ArrayList<>();
         setHasOptionsMenu(true);
 
@@ -71,8 +71,7 @@ public class Ebay extends Fragment {
         adapter = new EbayAdapter(productsEbas, getContext());
         loader = view.findViewById(R.id.loader);
         loader.setVisibility(View.VISIBLE);
-        flipkartviewmodel = new ViewModelProvider(getActivity(), new ViewModelProvider.NewInstanceFactory()).get(flipkartviewmodel.class);
-        amazonviewmodel = new ViewModelProvider(getActivity(), new ViewModelProvider.NewInstanceFactory()).get(amazonviewmodel.class);
+
         Ebayviewmodel = new ViewModelProvider(getActivity(), new ViewModelProvider.NewInstanceFactory()).get(Ebaviewmodel.class);
         Ebayviewmodel.getAllproduct().observe(getViewLifecycleOwner(), new Observer<ArrayList<ProductsEba>>() {
             @Override
@@ -82,7 +81,7 @@ public class Ebay extends Fragment {
             }
         });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerView.setLayoutManager(new VegaLayoutManager());
         adapter.notifyDataSetChanged();
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
