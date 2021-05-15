@@ -1,5 +1,5 @@
 # Ecommerce_app
-This app compares products from different websites like Amazon,Flipkart and Ebay .user can add items in cart. this app uses viewmodel and affiliate api calls.
+This app compares products from different websites like Amazon,Flipkart and Ebay .user can add items in cart.user can search the product acroos these websites. this app uses viewmodel and affiliate api calls.
 ![Screenshot_2021-05-15-10-46-49-099_com example ecommerce_app](https://user-images.githubusercontent.com/70520048/118349705-e00edd80-b56f-11eb-937c-8df67043c4af.jpg)
 ![Screenshot_2021-05-15-10-46-54-479_com example ecommerce_app](https://user-images.githubusercontent.com/70520048/118349711-eb620900-b56f-11eb-9eee-b3a130f7ee20.jpg)
 ![Screenshot_2021-05-15-10-46-59-522_com example ecommerce_app](https://user-images.githubusercontent.com/70520048/118349712-ef8e2680-b56f-11eb-9b3c-e60cf8e7f1ad.jpg)
